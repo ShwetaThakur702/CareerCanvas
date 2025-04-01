@@ -1,0 +1,176 @@
+/* Minimal Template Specific Styles */
+.minimal-template {
+    background-color: #ffffff;
+}
+
+.minimal-template .preview-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e9ecef;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+}
+
+.minimal-template section {
+    margin-bottom: 4rem;
+}
+
+.minimal-template section h2 {
+    font-size: 1.8rem;
+    color: #2d3436;
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e9ecef;
+    font-weight: 600;
+}
+
+/* Personal Info Section */
+.minimal-template .personal-info {
+    text-align: left;
+}
+
+.minimal-template .personal-info h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    border-bottom: none;
+}
+
+.minimal-template .personal-info h3 {
+    font-size: 1.2rem;
+    color: #636e72;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+}
+
+.minimal-template .contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.minimal-template .contact-info p {
+    color: #636e72;
+    font-size: 0.95rem;
+}
+
+.minimal-template .contact-info i {
+    color: #2d3436;
+}
+
+/* Education Section */
+.minimal-template .education-item {
+    background: none;
+    padding: 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 1.5rem;
+}
+
+.minimal-template .education-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.minimal-template .education-item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.minimal-template .education-item p {
+    color: #636e72;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+}
+
+/* Experience Section */
+.minimal-template .experience-item {
+    background: none;
+    padding: 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 1.5rem;
+}
+
+.minimal-template .experience-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.minimal-template .experience-item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.minimal-template .experience-item .company {
+    color: #2d3436;
+    font-weight: 500;
+}
+
+.minimal-template .experience-item .duration {
+    color: #636e72;
+    font-size: 0.9rem;
+}
+
+/* Skills Section */
+.minimal-template .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.minimal-template .skill-tag {
+    background: #f8f9fa;
+    color: #2d3436;
+    border: 1px solid #e9ecef;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+}
+
+/* Projects Section */
+.minimal-template .project-item {
+    background: none;
+    padding: 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 1.5rem;
+}
+
+.minimal-template .project-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.minimal-template .project-item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.minimal-template .project-link {
+    color: #2d3436;
+    font-weight: 500;
+}
+
+.minimal-template .project-link:hover {
+    color: #0984e3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .minimal-template .preview-container {
+        padding: 1rem;
+    }
+
+    .minimal-template .personal-info h2 {
+        font-size: 2rem;
+    }
+
+    .minimal-template .contact-info {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .minimal-template section h2 {
+        font-size: 1.6rem;
+    }
+}

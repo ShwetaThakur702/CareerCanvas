@@ -1,0 +1,345 @@
+/* Create Portfolio Page Styles */
+.create-section {
+  background-color: var(--background-color);
+  padding: 4rem 0;
+  min-height: 80vh;
+}
+
+.create-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+}
+
+.create-header h1 {
+  margin-bottom: 0.5rem;
+}
+
+.create-card {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  overflow-x: auto;
+  background-color: var(--primary-color);
+  padding: 0.5rem;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  color: var(--light-color);
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  flex: 1;
+  min-width: 80px;
+  text-align: center;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tab-btn i {
+  font-size: 1.25rem;
+}
+
+.tab-btn.active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tab-btn:hover:not(.active) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.tab-content {
+  padding: 2rem;
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+/* Upload Area */
+.upload-area {
+  border: 2px dashed var(--gray-300);
+  border-radius: var(--border-radius);
+  padding: 3rem 2rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.upload-area i {
+  font-size: 3rem;
+  color: var(--gray-400);
+  margin-bottom: 1rem;
+}
+
+.upload-area h3 {
+  margin-bottom: 0.5rem;
+}
+
+.upload-area p {
+  margin-bottom: 1.5rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Add these styles after the upload-area styles */
+
+.url-divider {
+  text-align: center;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.url-divider::before,
+.url-divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 45%;
+  height: 1px;
+  background-color: var(--gray-300);
+}
+
+.url-divider::before {
+  left: 0;
+}
+
+.url-divider::after {
+  right: 0;
+}
+
+.url-divider span {
+  display: inline-block;
+  padding: 0 1rem;
+  background-color: var(--white);
+  position: relative;
+  z-index: 1;
+  color: var(--gray-600);
+  font-size: 0.875rem;
+}
+
+.linkedin-url-area {
+  border: 2px dashed var(--gray-300);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.linkedin-url-area i {
+  font-size: 3rem;
+  color: #0077b5; /* LinkedIn blue */
+  margin-bottom: 1rem;
+}
+
+.linkedin-url-area h3 {
+  margin-bottom: 0.5rem;
+}
+
+.linkedin-url-area p {
+  margin-bottom: 1.5rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.linkedin-url-input {
+  display: flex;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.linkedin-url-input input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid var(--gray-300);
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+  border-right: none;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.linkedin-url-input input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.linkedin-url-input button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+@media (max-width: 576px) {
+  .linkedin-url-input {
+    flex-direction: column;
+  }
+
+  .linkedin-url-input input {
+    border-right: 1px solid var(--gray-300);
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .linkedin-url-input button {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: var(--border-radius);
+  }
+}
+
+.manual-option {
+  text-align: center;
+}
+
+.text-link {
+  background: none;
+  border: none;
+  color: var(--secondary-color);
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+/* Form Styles */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--dark-color);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(88, 96, 128, 0.1);
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+/* Education, Experience, Skills, Projects */
+.education-item,
+.experience-item,
+.project-item {
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #dc3545;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.remove-btn:hover {
+  text-decoration: underline;
+}
+
+.add-btn {
+  width: 100%;
+  border-style: dashed;
+  margin-bottom: 1.5rem;
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.skill-input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.skills-section,
+.projects-section {
+  margin-bottom: 2rem;
+}
+
+.skills-section h3,
+.projects-section h3 {
+  margin-bottom: 1rem;
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tab-btn {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .tab-btn i {
+    margin-right: 0.5rem;
+    margin-bottom: 0;
+  }
+}
+

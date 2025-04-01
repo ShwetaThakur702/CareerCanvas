@@ -1,0 +1,987 @@
+document.addEventListener("DOMContentLoaded", () => {
+  // Get template parameter from URL
+  const urlParams = new URLSearchParams(window.location.search)
+  const templateParam = urlParams.get("template")
+
+  // Update template info text if template is selected
+  if (templateParam) {
+    const templateInfo = document.getElementById("template-info")
+    if (templateInfo) {
+      const templateName = templateParam.charAt(0).toUpperCase() + templateParam.slice(1)
+      templateInfo.textContent = `Using the ${templateName} template`
+    }
+  }
+
+  // Tab Navigation
+  const tabBtns = document.querySelectorAll(".tab-btn")
+  const tabPanes = document.querySelectorAll(".tab-pane")
+
+  tabBtns.forEach((btn) => {
+    btn.addEventListener("click", function () {
+      // Remove active class from all buttons and panes
+      tabBtns.forEach((b) => b.classList.remove("active"))
+      tabPanes.forEach((p) => p.classList.remove("active"))
+
+      // Add active class to clicked button
+      this.classList.add("active")
+
+      // Show corresponding tab pane
+      const tabId = this.getAttribute("data-tab")
+      document.getElementById(tabId).classList.add("active")
+    })
+  })
+
+  // Manual Entry Button
+  const manualEntryBtn = document.getElementById("manual-entry-btn")
+  if (manualEntryBtn) {
+    manualEntryBtn.addEventListener("click", () => {
+      document.querySelector('[data-tab="personal"]').click()
+    })
+  }
+
+  // Next and Previous Buttons
+  const nextBtns = document.querySelectorAll(".next-btn")
+  const prevBtns = document.querySelectorAll(".prev-btn")
+
+  nextBtns.forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const nextTab = this.getAttribute("data-next")
+      document.querySelector(`[data-tab="${nextTab}"]`).click()
+    })
+  })
+
+  prevBtns.forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const prevTab = this.getAttribute("data-prev")
+      document.querySelector(`[data-tab="${prevTab}"]`).click()
+    })
+  })
+
+  // Add Education
+  let educationCount = 1
+  const addEducationBtn = document.getElementById("add-education")
+  const educationContainer = document.getElementById("education-container")
+
+  if (addEducationBtn && educationContainer) {
+    addEducationBtn.addEventListener("click", () => {
+      educationCount++
+      const newEducation = document.createElement("div")
+      newEducation.className = "education-item"
+      newEducation.innerHTML = `
+                <div class="item-header">
+                    <h3>Education #${educationCount}</h3>
+                    <button type="button" class="remove-btn">Remove</button>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="institution-${educationCount - 1}">Institution</label>
+                        <input type="text" id="institution-${educationCount - 1}" placeholder="University Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="degree-${educationCount - 1}">Degree</label>
+                        <input type="text" id="degree-${educationCount - 1}" placeholder="B.S. Computer Science">
+                    </div>
+                    <div class="form-group">
+                        <label for="year-${educationCount - 1}">Year</label>
+                        <input type="text" id="year-${educationCount - 1}" placeholder="2018-2022">
+                    </div>
+                </div>
+            `
+      educationContainer.appendChild(newEducation)
+
+      // Add remove button functionality
+      const removeBtn = newEducation.querySelector(".remove-btn")
+      removeBtn.addEventListener("click", () => {
+        educationContainer.removeChild(newEducation)
+      })
+    })
+  }
+
+  // Add Experience
+  let experienceCount = 1
+  const addExperienceBtn = document.getElementById("add-experience")
+  const experienceContainer = document.getElementById("experience-container")
+
+  if (addExperienceBtn && experienceContainer) {
+    addExperienceBtn.addEventListener("click", () => {
+      experienceCount++
+      const newExperience = document.createElement("div")
+      newExperience.className = "experience-item"
+      newExperience.innerHTML = `
+                <div class="item-header">
+                    <h3>Experience #${experienceCount}</h3>
+                    <button type="button" class="remove-btn">Remove</button>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="company-${experienceCount - 1}">Company</label>
+                        <input type="text" id="company-${experienceCount - 1}" placeholder="Company Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="position-${experienceCount - 1}">Position</label>
+                        <input type="text" id="position-${experienceCount - 1}" placeholder="Software Developer">
+                    </div>
+                    <div class="form-group">
+                        <label for="duration-${experienceCount - 1}">Duration</label>
+                        <input type="text" id="duration-${experienceCount - 1}" placeholder="2022-Present">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description-${experienceCount - 1}">Description</label>
+                    <textarea id="description-${experienceCount - 1}" placeholder="Describe your responsibilities and achievements" rows="3"></textarea>
+                </div>
+            `
+      experienceContainer.appendChild(newExperience)
+
+      // Add remove button functionality
+      const removeBtn = newExperience.querySelector(".remove-btn")
+      removeBtn.addEventListener("click", () => {
+        experienceContainer.removeChild(newExperience)
+      })
+    })
+  }
+
+  // Add Skill
+  const addSkillBtn = document.getElementById("add-skill")
+  const skillsContainer = document.getElementById("skills-container")
+
+  if (addSkillBtn && skillsContainer) {
+    addSkillBtn.addEventListener("click", () => {
+      const newSkill = document.createElement("div")
+      newSkill.className = "skill-item"
+      newSkill.innerHTML = `
+                <input type="text" class="skill-input" placeholder="e.g., JavaScript, React, Node.js">
+                <button type="button" class="remove-btn">Remove</button>
+            `
+      skillsContainer.appendChild(newSkill)
+
+      // Add remove button functionality
+      const removeBtn = newSkill.querySelector(".remove-btn")
+      removeBtn.addEventListener("click", () => {
+        skillsContainer.removeChild(newSkill)
+      })
+    })
+  }
+
+  // Add Project
+  let projectCount = 1
+  const addProjectBtn = document.getElementById("add-project")
+  const projectsContainer = document.getElementById("projects-container")
+
+  if (addProjectBtn && projectsContainer) {
+    addProjectBtn.addEventListener("click", () => {
+      projectCount++
+      const newProject = document.createElement("div")
+      newProject.className = "project-item"
+      newProject.innerHTML = `
+                <div class="item-header">
+                    <h3>Project #${projectCount}</h3>
+                    <button type="button" class="remove-btn">Remove</button>
+                </div>
+                <div class="form-group">
+                    <label for="project-name-${projectCount - 1}">Project Name</label>
+                    <input type="text" id="project-name-${projectCount - 1}" placeholder="Project Name">
+                </div>
+                <div class="form-group">
+                    <label for="project-description-${projectCount - 1}">Description</label>
+                    <textarea id="project-description-${projectCount - 1}" placeholder="Describe your project" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="project-link-${projectCount - 1}">Project Link</label>
+                    <input type="url" id="project-link-${projectCount - 1}" placeholder="https://github.com/yourusername/project">
+                </div>
+            `
+      projectsContainer.appendChild(newProject)
+
+      // Add remove button functionality
+      const removeBtn = newProject.querySelector(".remove-btn")
+      removeBtn.addEventListener("click", () => {
+        projectsContainer.removeChild(newProject)
+      })
+    })
+  }
+
+  // LinkedIn PDF Upload
+  const linkedinPdfInput = document.getElementById("linkedin-pdf")
+  const uploadBtnText = document.getElementById("upload-btn-text")
+
+  if (linkedinPdfInput && uploadBtnText) {
+    linkedinPdfInput.addEventListener("change", (e) => {
+      const file = e.target.files[0]
+      if (!file) return
+
+      // Check if file is PDF
+      if (file.type !== "application/pdf") {
+        alert("Please upload a PDF file exported from LinkedIn")
+        return
+      }
+
+      // Show loading state
+      uploadBtnText.textContent = "Processing..."
+
+      // Parse the PDF and extract information
+      parsePDF(file)
+        .then((data) => {
+          // Fill the form with extracted data
+          populateFormWithData(data)
+
+          // Reset upload button
+          uploadBtnText.textContent = "Select PDF File"
+
+          // Show success message
+          alert(
+            "LinkedIn PDF processed successfully! Your information has been extracted. Please review and edit if needed.",
+          )
+
+          // Switch to personal tab
+          document.querySelector('[data-tab="personal"]').click()
+        })
+        .catch((error) => {
+          console.error("Error processing PDF:", error)
+          alert("Error processing PDF. Please try again or enter information manually.")
+          uploadBtnText.textContent = "Select PDF File"
+        })
+    })
+  }
+
+  // Add this code after the LinkedIn PDF Upload section and before the Create Portfolio Button section
+
+  // LinkedIn URL Extraction
+  const linkedinUrlInput = document.getElementById("linkedin-url")
+  const extractUrlBtn = document.getElementById("extract-url-btn")
+
+  if (linkedinUrlInput && extractUrlBtn) {
+    extractUrlBtn.addEventListener("click", () => {
+      const url = linkedinUrlInput.value.trim()
+
+      // Validate LinkedIn URL
+      if (!url) {
+        alert("Please enter a LinkedIn profile URL")
+        return
+      }
+
+      // Check if it's a valid LinkedIn URL
+      if (!isValidLinkedInUrl(url)) {
+        alert("Please enter a valid LinkedIn profile URL (e.g., https://www.linkedin.com/in/username)")
+        return
+      }
+
+      // Show loading state
+      extractUrlBtn.textContent = "Extracting..."
+      extractUrlBtn.disabled = true
+
+      // Extract data from LinkedIn URL
+      extractFromLinkedInUrl(url)
+        .then((data) => {
+          // Fill the form with extracted data
+          populateFormWithData(data)
+
+          // Reset button
+          extractUrlBtn.textContent = "Extract"
+          extractUrlBtn.disabled = false
+
+          // Show success message
+          alert("LinkedIn profile data extracted successfully! Please review and edit if needed.")
+
+          // Switch to personal tab
+          document.querySelector('[data-tab="personal"]').click()
+        })
+        .catch((error) => {
+          console.error("Error extracting LinkedIn data:", error)
+          alert("Error extracting data from LinkedIn URL. Please try again or enter information manually.")
+          extractUrlBtn.textContent = "Extract"
+          extractUrlBtn.disabled = false
+        })
+    })
+  }
+
+  /**
+   * Validate if the URL is a LinkedIn profile URL
+   * @param {string} url - URL to validate
+   * @returns {boolean} - Whether the URL is valid
+   */
+  function isValidLinkedInUrl(url) {
+    // Basic validation for LinkedIn profile URLs
+    const linkedInRegex = /^https?:\/\/(www\.)?linkedin\.com\/in\/[\w-]+\/?$/i
+    return linkedInRegex.test(url)
+  }
+
+  /**
+   * Extract data from LinkedIn profile URL
+   * @param {string} url - LinkedIn profile URL
+   * @returns {Promise<Object>} - Extracted data
+   */
+  function extractFromLinkedInUrl(url) {
+    return new Promise((resolve, reject) => {
+      // In a real application, we would:
+      // 1. Send the URL to a server-side endpoint
+      // 2. The server would use LinkedIn API or scraping techniques to extract data
+      // 3. Return the structured data
+
+      // For this demo, we'll simulate the extraction process
+
+      // Extract username from URL
+      const username = url.split("/in/")[1].replace(/\/$/, "")
+
+      // Simulate API call delay
+      setTimeout(() => {
+        try {
+          // Generate profile data based on username
+          const data = generateProfileDataFromUsername(username)
+          resolve(data)
+        } catch (error) {
+          reject(error)
+        }
+      }, 2000)
+    })
+  }
+
+  /**
+   * Generate profile data based on username
+   * @param {string} username - LinkedIn username
+   * @returns {Object} - Generated profile data
+   */
+  function generateProfileDataFromUsername(username) {
+    // Create a deterministic but varied profile based on the username
+    // This ensures the same username always generates the same profile
+
+    // Create a simple hash of the username for deterministic randomness
+    const hash = simpleHash(username)
+
+    // Use the hash to select profile elements
+    const names = [
+      "Sarah Johnson",
+      "Michael Chen",
+      "Priya Patel",
+      "David Rodriguez",
+      "Emma Wilson",
+      "Alex Thompson",
+      "Olivia Martinez",
+      "James Wilson",
+      "Sophia Lee",
+      "Ethan Brown",
+    ]
+    const titles = [
+      "Frontend Developer",
+      "UX/UI Designer",
+      "Data Scientist",
+      "Product Manager",
+      "Software Engineer",
+      "Full Stack Developer",
+      "DevOps Engineer",
+      "Mobile App Developer",
+      "AI Researcher",
+      "Cloud Architect",
+    ]
+    const companies = [
+      "Tech Innovations",
+      "Digital Solutions",
+      "Data Insights",
+      "Product Labs",
+      "Software Co",
+      "Global Systems",
+      "Future Tech",
+      "Cloud Services",
+      "Mobile Apps Inc",
+      "AI Solutions",
+    ]
+    const universities = [
+      "Stanford University",
+      "MIT",
+      "UC Berkeley",
+      "Georgia Tech",
+      "University of Michigan",
+      "Carnegie Mellon",
+      "Cornell University",
+      "University of Washington",
+      "Caltech",
+      "Princeton",
+    ]
+    const degrees = [
+      "B.S. Computer Science",
+      "M.S. Information Systems",
+      "B.A. Design",
+      "MBA",
+      "Ph.D. Computer Engineering",
+      "B.S. Data Science",
+      "M.S. Artificial Intelligence",
+      "B.S. Software Engineering",
+      "M.S. UX Design",
+      "B.S. Cybersecurity",
+    ]
+    const cities = [
+      "San Francisco, CA",
+      "New York, NY",
+      "Seattle, WA",
+      "Austin, TX",
+      "Chicago, IL",
+      "Boston, MA",
+      "Los Angeles, CA",
+      "Denver, CO",
+      "Atlanta, GA",
+      "Portland, OR",
+    ]
+
+    // Select deterministic but varied elements based on username hash
+    const nameIndex = hash % names.length
+    const titleIndex = (hash * 3) % titles.length
+    const companyIndex = (hash * 7) % companies.length
+    const universityIndex = (hash * 11) % universities.length
+    const degreeIndex = (hash * 13) % degrees.length
+    const cityIndex = (hash * 17) % cities.length
+
+    // Generate name parts for email
+    const nameParts = names[nameIndex].toLowerCase().split(" ")
+
+    // Generate skills (deterministic selection)
+    const allSkills = [
+      "JavaScript",
+      "React",
+      "Node.js",
+      "TypeScript",
+      "HTML/CSS",
+      "Python",
+      "Data Analysis",
+      "Machine Learning",
+      "SQL",
+      "AWS",
+      "UI/UX Design",
+      "Figma",
+      "Adobe XD",
+      "User Research",
+      "Prototyping",
+      "Product Strategy",
+      "Agile",
+      "Scrum",
+      "A/B Testing",
+      "Market Analysis",
+      "Java",
+      "C#",
+      "Docker",
+      "Kubernetes",
+      "Git",
+      "GraphQL",
+      "REST APIs",
+      "MongoDB",
+      "PostgreSQL",
+      "Redis",
+    ]
+
+    // Select 4-6 skills deterministically
+    const numSkills = 4 + (hash % 3)
+    const skills = []
+    for (let i = 0; i < numSkills; i++) {
+      const skillIndex = (hash * (i + 1) * 19) % allSkills.length
+      const skill = allSkills[skillIndex]
+      if (!skills.includes(skill)) {
+        skills.push(skill)
+      }
+    }
+
+    // Generate project names (deterministic)
+    const projectTypes = [
+      "E-commerce",
+      "Portfolio",
+      "Dashboard",
+      "Mobile App",
+      "API",
+      "Analytics",
+      "Social Network",
+      "Booking System",
+    ]
+    const projectIndex = hash % projectTypes.length
+
+    // Construct the profile data
+    return {
+      name: names[nameIndex],
+      title: titles[titleIndex],
+      email: `${nameParts[0]}.${nameParts[1]}@example.com`,
+      phone: `+1 (${555 + (hash % 400)}) ${100 + (hash % 900)}-${1000 + (hash % 9000)}`,
+      location: cities[cityIndex],
+      about: `Experienced ${titles[titleIndex].toLowerCase()} with a passion for creating innovative solutions and driving results. Skilled in ${skills.slice(0, 3).join(", ")}, and other technologies.`,
+      education: [
+        {
+          institution: universities[universityIndex],
+          degree: degrees[degreeIndex],
+          year: `${2010 + (hash % 10)} - ${2014 + (hash % 10)}`,
+        },
+      ],
+      experience: [
+        {
+          company: companies[companyIndex],
+          position: titles[titleIndex],
+          duration: `${2015 + (hash % 7)} - Present`,
+          description: `Led development of key projects and collaborated with cross-functional teams to deliver high-quality solutions using ${skills.slice(0, 2).join(" and ")}.`,
+        },
+      ],
+      skills: skills,
+      projects: [
+        {
+          name: `${projectTypes[projectIndex]} Platform`,
+          description: `Built a ${projectTypes[projectIndex].toLowerCase()} platform using ${skills[0]} and ${skills[1]}.`,
+          link: `https://github.com/${username}/${projectTypes[projectIndex].toLowerCase().replace(" ", "-")}`,
+        },
+      ],
+    }
+  }
+
+  /**
+   * Simple string hash function
+   * @param {string} str - String to hash
+   * @returns {number} - Hash value
+   */
+  function simpleHash(str) {
+    let hash = 0
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i)
+      hash = (hash << 5) - hash + char
+      hash = hash & hash // Convert to 32bit integer
+    }
+    return Math.abs(hash)
+  }
+
+  /**
+   * Parse PDF file and extract information
+   * @param {File} file - The PDF file to parse
+   * @returns {Promise<Object>} - Extracted data
+   */
+  function parsePDF(file) {
+    return new Promise((resolve, reject) => {
+      // Create a FileReader to read the file
+      const reader = new FileReader()
+
+      reader.onload = (event) => {
+        const arrayBuffer = event.target.result
+
+        // In a real application, we would use a PDF parsing library like pdf.js
+        // For this demo, we'll use a text extraction approach
+
+        // Convert ArrayBuffer to text (this is a simplified approach)
+        const textContent = extractTextFromPDF(arrayBuffer)
+
+        // Extract structured data from the text content
+        const extractedData = extractStructuredData(textContent)
+
+        resolve(extractedData)
+      }
+
+      reader.onerror = () => {
+        reject(new Error("Error reading the PDF file"))
+      }
+
+      // Read the file as ArrayBuffer
+      reader.readAsArrayBuffer(file)
+    })
+  }
+
+  /**
+   * Extract text from PDF (simplified simulation)
+   * @param {ArrayBuffer} arrayBuffer - PDF file as ArrayBuffer
+   * @returns {string} - Extracted text
+   */
+  function extractTextFromPDF(arrayBuffer) {
+    // In a real application, we would use pdf.js to extract text
+    // For this demo, we'll simulate text extraction
+
+    // Convert ArrayBuffer to Uint8Array
+    const uint8Array = new Uint8Array(arrayBuffer)
+
+    // Check for PDF signature (%PDF-)
+    const signature = String.fromCharCode(uint8Array[0], uint8Array[1], uint8Array[2], uint8Array[3], uint8Array[4])
+
+    if (signature !== "%PDF-") {
+      throw new Error("Invalid PDF file")
+    }
+
+    // Simulate text extraction by analyzing PDF content
+    // In reality, we would use pdf.js to properly extract text
+
+    // For demo purposes, we'll extract text based on common LinkedIn PDF patterns
+    // This is a simplified simulation
+
+    // Return simulated extracted text
+    return simulateLinkedInPDFContent()
+  }
+
+  /**
+   * Simulate LinkedIn PDF content for demonstration
+   * @returns {string} - Simulated LinkedIn PDF content
+   */
+  function simulateLinkedInPDFContent() {
+    // This function simulates the text content of a LinkedIn PDF
+    // In a real application, this would be the actual text extracted from the PDF
+
+    // Generate random content to simulate different profiles
+    const names = ["Sarah Johnson", "Michael Chen", "Priya Patel", "David Rodriguez", "Emma Wilson"]
+    const titles = ["Frontend Developer", "UX/UI Designer", "Data Scientist", "Product Manager", "Software Engineer"]
+    const companies = ["Tech Innovations", "Digital Solutions", "Data Insights", "Product Labs", "Software Co"]
+    const universities = ["Stanford University", "MIT", "UC Berkeley", "Georgia Tech", "University of Michigan"]
+    const degrees = [
+      "B.S. Computer Science",
+      "M.S. Information Systems",
+      "B.A. Design",
+      "MBA",
+      "Ph.D. Computer Engineering",
+    ]
+    const skills = [
+      "JavaScript",
+      "React",
+      "Node.js",
+      "TypeScript",
+      "HTML/CSS",
+      "Python",
+      "Data Analysis",
+      "Machine Learning",
+      "SQL",
+      "AWS",
+      "UI/UX Design",
+      "Figma",
+      "Adobe XD",
+      "User Research",
+      "Prototyping",
+      "Product Strategy",
+      "Agile",
+      "Scrum",
+      "A/B Testing",
+      "Market Analysis",
+    ]
+
+    // Randomly select profile elements
+    const randomName = names[Math.floor(Math.random() * names.length)]
+    const randomTitle = titles[Math.floor(Math.random() * titles.length)]
+    const randomCompany = companies[Math.floor(Math.random() * companies.length)]
+    const randomUniversity = universities[Math.floor(Math.random() * universities.length)]
+    const randomDegree = degrees[Math.floor(Math.random() * degrees.length)]
+
+    // Generate random skills (3-5)
+    const numSkills = Math.floor(Math.random() * 3) + 3
+    const randomSkills = []
+    for (let i = 0; i < numSkills; i++) {
+      const skill = skills[Math.floor(Math.random() * skills.length)]
+      if (!randomSkills.includes(skill)) {
+        randomSkills.push(skill)
+      }
+    }
+
+    // Generate random locations
+    const cities = ["San Francisco, CA", "New York, NY", "Seattle, WA", "Austin, TX", "Chicago, IL"]
+    const randomLocation = cities[Math.floor(Math.random() * cities.length)]
+
+    // Generate random email based on name
+    const nameParts = randomName.toLowerCase().split(" ")
+    const randomEmail = `${nameParts[0]}.${nameParts[1]}@example.com`
+
+    // Generate random phone
+    const randomPhone = `+1 (${Math.floor(Math.random() * 900) + 100}) ${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 9000) + 1000}`
+
+    // Construct simulated LinkedIn PDF content
+    return `
+        Profile
+        ${randomName}
+        ${randomTitle} at ${randomCompany}
+        ${randomLocation}
+        Contact
+        ${randomEmail}
+        ${randomPhone}
+        
+        About
+        Experienced professional with a passion for creating innovative solutions and driving results.
+        
+        Experience
+        ${randomCompany}
+        ${randomTitle}
+        2020 - Present
+        Led development of key projects and collaborated with cross-functional teams to deliver high-quality solutions.
+        
+        Education
+        ${randomUniversity}
+        ${randomDegree}
+        2016 - 2020
+        
+        Skills
+        ${randomSkills.join("\n")}
+        
+        Projects
+        Portfolio Website
+        Created a responsive portfolio website to showcase professional work and skills.
+        https://github.com/${nameParts[0]}${nameParts[1]}/portfolio
+    `
+  }
+
+  /**
+   * Extract structured data from text content
+   * @param {string} textContent - Text content from PDF
+   * @returns {Object} - Structured data
+   */
+  function extractStructuredData(textContent) {
+    // In a real application, we would use NLP or regex to extract structured data
+    // For this demo, we'll use simple pattern matching
+
+    const data = {
+      name: "",
+      title: "",
+      email: "",
+      phone: "",
+      location: "",
+      about: "",
+      education: [],
+      experience: [],
+      skills: [],
+      projects: [],
+    }
+
+    // Extract name (usually at the beginning of the PDF)
+    const nameMatch = textContent.match(/Profile\s+([A-Za-z\s]+)/)
+    if (nameMatch && nameMatch[1]) {
+      data.name = nameMatch[1].trim()
+    }
+
+    // Extract title and company
+    const titleMatch = textContent.match(/([A-Za-z\s/]+) at ([A-Za-z\s]+)/)
+    if (titleMatch && titleMatch[1]) {
+      data.title = titleMatch[1].trim()
+    }
+
+    // Extract location
+    const locationMatch = textContent.match(/([A-Za-z]+, [A-Z]{2})/)
+    if (locationMatch && locationMatch[1]) {
+      data.location = locationMatch[1].trim()
+    }
+
+    // Extract email
+    const emailMatch = textContent.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/)
+    if (emailMatch && emailMatch[1]) {
+      data.email = emailMatch[1].trim()
+    }
+
+    // Extract phone
+    const phoneMatch = textContent.match(/(\+1 $$\d{3}$$ \d{3}-\d{4})/)
+    if (phoneMatch && phoneMatch[1]) {
+      data.phone = phoneMatch[1].trim()
+    }
+
+    // Extract about
+    const aboutMatch = textContent.match(/About\s+([\s\S]*?)(?=Experience|Education|Skills|$)/)
+    if (aboutMatch && aboutMatch[1]) {
+      data.about = aboutMatch[1].trim()
+    }
+
+    // Extract education
+    const educationSection = textContent.match(/Education\s+([\s\S]*?)(?=Experience|Skills|Projects|$)/)
+    if (educationSection && educationSection[1]) {
+      const educationText = educationSection[1].trim()
+      const educationLines = educationText.split("\n").filter((line) => line.trim() !== "")
+
+      if (educationLines.length >= 2) {
+        data.education.push({
+          institution: educationLines[0].trim(),
+          degree: educationLines[1].trim(),
+          year: educationLines.length > 2 ? educationLines[2].trim() : "",
+        })
+      }
+    }
+
+    // Extract experience
+    const experienceSection = textContent.match(/Experience\s+([\s\S]*?)(?=Education|Skills|Projects|$)/)
+    if (experienceSection && experienceSection[1]) {
+      const experienceText = experienceSection[1].trim()
+      const experienceLines = experienceText.split("\n").filter((line) => line.trim() !== "")
+
+      if (experienceLines.length >= 3) {
+        data.experience.push({
+          company: experienceLines[0].trim(),
+          position: experienceLines[1].trim(),
+          duration: experienceLines[2].trim(),
+          description: experienceLines.length > 3 ? experienceLines[3].trim() : "",
+        })
+      }
+    }
+
+    // Extract skills
+    const skillsSection = textContent.match(/Skills\s+([\s\S]*?)(?=Projects|$)/)
+    if (skillsSection && skillsSection[1]) {
+      const skillsText = skillsSection[1].trim()
+      data.skills = skillsText
+        .split("\n")
+        .map((skill) => skill.trim())
+        .filter((skill) => skill !== "")
+    }
+
+    // Extract projects
+    const projectsSection = textContent.match(/Projects\s+([\s\S]*?)(?=$)/)
+    if (projectsSection && projectsSection[1]) {
+      const projectsText = projectsSection[1].trim()
+      const projectLines = projectsText.split("\n").filter((line) => line.trim() !== "")
+
+      if (projectLines.length >= 2) {
+        data.projects.push({
+          name: projectLines[0].trim(),
+          description: projectLines[1].trim(),
+          link: projectLines.length > 2 ? projectLines[2].trim() : "",
+        })
+      }
+    }
+
+    return data
+  }
+
+  /**
+   * Populate form fields with extracted data
+   * @param {Object} data - Extracted data from PDF
+   */
+  function populateFormWithData(data) {
+    // Personal information
+    if (data.name) document.getElementById("name").value = data.name
+    if (data.title) document.getElementById("title").value = data.title
+    if (data.email) document.getElementById("email").value = data.email
+    if (data.phone) document.getElementById("phone").value = data.phone
+    if (data.location) document.getElementById("location").value = data.location
+    if (data.about) document.getElementById("about").value = data.about
+
+    // Education
+    if (data.education && data.education.length > 0) {
+      // Clear existing education items except the first one
+      const educationContainer = document.getElementById("education-container")
+      while (educationContainer.children.length > 1) {
+        educationContainer.removeChild(educationContainer.lastChild)
+      }
+
+      // Populate first education item
+      if (data.education[0].institution) document.getElementById("institution-0").value = data.education[0].institution
+      if (data.education[0].degree) document.getElementById("degree-0").value = data.education[0].degree
+      if (data.education[0].year) document.getElementById("year-0").value = data.education[0].year
+
+      // Add additional education items if needed
+      for (let i = 1; i < data.education.length; i++) {
+        // Trigger the add education button
+        document.getElementById("add-education").click()
+
+        // Get the newly created education item
+        const newEducationItem = educationContainer.lastChild
+
+        // Populate the fields
+        const institutionInput = newEducationItem.querySelector(`input[id^="institution-"]`)
+        const degreeInput = newEducationItem.querySelector(`input[id^="degree-"]`)
+        const yearInput = newEducationItem.querySelector(`input[id^="year-"]`)
+
+        if (institutionInput && data.education[i].institution) institutionInput.value = data.education[i].institution
+        if (degreeInput && data.education[i].degree) degreeInput.value = data.education[i].degree
+        if (yearInput && data.education[i].year) yearInput.value = data.education[i].year
+      }
+    }
+
+    // Experience
+    if (data.experience && data.experience.length > 0) {
+      // Clear existing experience items except the first one
+      const experienceContainer = document.getElementById("experience-container")
+      while (experienceContainer.children.length > 1) {
+        experienceContainer.removeChild(experienceContainer.lastChild)
+      }
+
+      // Populate first experience item
+      if (data.experience[0].company) document.getElementById("company-0").value = data.experience[0].company
+      if (data.experience[0].position) document.getElementById("position-0").value = data.experience[0].position
+      if (data.experience[0].duration) document.getElementById("duration-0").value = data.experience[0].duration
+      if (data.experience[0].description)
+        document.getElementById("description-0").value = data.experience[0].description
+
+      // Add additional experience items if needed
+      for (let i = 1; i < data.experience.length; i++) {
+        // Trigger the add experience button
+        document.getElementById("add-experience").click()
+
+        // Get the newly created experience item
+        const newExperienceItem = experienceContainer.lastChild
+
+        // Populate the fields
+        const companyInput = newExperienceItem.querySelector(`input[id^="company-"]`)
+        const positionInput = newExperienceItem.querySelector(`input[id^="position-"]`)
+        const durationInput = newExperienceItem.querySelector(`input[id^="duration-"]`)
+        const descriptionInput = newExperienceItem.querySelector(`textarea[id^="description-"]`)
+
+        if (companyInput && data.experience[i].company) companyInput.value = data.experience[i].company
+        if (positionInput && data.experience[i].position) positionInput.value = data.experience[i].position
+        if (durationInput && data.experience[i].duration) durationInput.value = data.experience[i].duration
+        if (descriptionInput && data.experience[i].description) descriptionInput.value = data.experience[i].description
+      }
+    }
+
+    // Skills
+    if (data.skills && data.skills.length > 0) {
+      // Clear existing skills except the first one
+      const skillsContainer = document.getElementById("skills-container")
+      while (skillsContainer.children.length > 1) {
+        skillsContainer.removeChild(skillsContainer.lastChild)
+      }
+
+      // Populate first skill
+      const firstSkillInput = skillsContainer.querySelector(".skill-input")
+      if (firstSkillInput && data.skills[0]) firstSkillInput.value = data.skills[0]
+
+      // Add additional skills if needed
+      for (let i = 1; i < data.skills.length; i++) {
+        // Trigger the add skill button
+        document.getElementById("add-skill").click()
+
+        // Get the newly created skill item
+        const newSkillItem = skillsContainer.lastChild
+
+        // Populate the field
+        const skillInput = newSkillItem.querySelector(".skill-input")
+        if (skillInput && data.skills[i]) skillInput.value = data.skills[i]
+      }
+    }
+
+    // Projects
+    if (data.projects && data.projects.length > 0) {
+      // Clear existing projects except the first one
+      const projectsContainer = document.getElementById("projects-container")
+      while (projectsContainer.children.length > 1) {
+        projectsContainer.removeChild(projectsContainer.lastChild)
+      }
+
+      // Populate first project
+      if (data.projects[0].name) document.getElementById("project-name-0").value = data.projects[0].name
+      if (data.projects[0].description)
+        document.getElementById("project-description-0").value = data.projects[0].description
+      if (data.projects[0].link) document.getElementById("project-link-0").value = data.projects[0].link
+
+      // Add additional projects if needed
+      for (let i = 1; i < data.projects.length; i++) {
+        // Trigger the add project button
+        document.getElementById("add-project").click()
+
+        // Get the newly created project item
+        const newProjectItem = projectsContainer.lastChild
+
+        // Populate the fields
+        const nameInput = newProjectItem.querySelector(`input[id^="project-name-"]`)
+        const descriptionInput = newProjectItem.querySelector(`textarea[id^="project-description-"]`)
+        const linkInput = newProjectItem.querySelector(`input[id^="project-link-"]`)
+
+        if (nameInput && data.projects[i].name) nameInput.value = data.projects[i].name
+        if (descriptionInput && data.projects[i].description) descriptionInput.value = data.projects[i].description
+        if (linkInput && data.projects[i].link) linkInput.value = data.projects[i].link
+      }
+    }
+  }
+
+  // Create Portfolio Button
+  const createPortfolioBtn = document.getElementById("create-portfolio-btn")
+
+  if (createPortfolioBtn) {
+    createPortfolioBtn.addEventListener("click", () => {
+      // In a real application, we would collect all the form data
+      // and send it to the server to generate the portfolio
+
+      // For demo purposes, we'll just show a success message and redirect
+      alert("Portfolio created successfully! Your portfolio is now available at your unique URL.")
+
+      // Redirect to portfolio page
+      const template = templateParam || "minimal"
+      const portfolioId = template + "-" + Math.random().toString(36).substring(2, 8)
+      window.location.href = `portfolio.html?id=${portfolioId}&template=${template}`
+    })
+  }
+})
+

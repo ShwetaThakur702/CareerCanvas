@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Template Preview - Portfolio Maker</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/preview.css">
+    <link rel="stylesheet" href="../css/templates/minimal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="preview-container minimal-template">
+        <div class="preview-header" style="background-image: url('../4.jpg');">
+            <div class="template-buttons">
+                <a href="../templates.html" class="template-button templates-button">Templates</a>
+                <a href="../create.html?template=minimal" class="template-button use-template-btn">Use This Template</a>
+            </div>
+            <h1>Minimal Template Preview</h1>
+            <p>Clean and simple design focusing on content</p>
+        </div>
+
+        <div id="portfolio-content">
+            <!-- Portfolio content will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script src="../js/sample-portfolio.js"></script>
+    <script>
+        // Function to load and display portfolio data
+        function loadPortfolioData() {
+            const portfolioData = JSON.parse(localStorage.getItem('preview_portfolio_data'));
+            if (!portfolioData) {
+                console.error('No preview data found');
+                return;
+            }
+
+            const portfolioContent = document.getElementById('portfolio-content');
+
+            // Personal Information Section
+            portfolioContent.innerHTML = `
+                <section class="personal-info">
+                    <h2>${portfolioData.personal.name}</h2>
+                    <h3>${portfolioData.personal.title}</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> ${portfolioData.personal.email}</p>
+                        <p><i class="fas fa-phone"></i> ${portfolioData.personal.phone}</p>
+                        <p><i class="fas fa-map-marker-alt"></i> ${portfolioData.personal.location}</p>
+                    </div>
+                    <div class="about">
+                        <h4>About Me</h4>
+                        <p>${portfolioData.personal.about}</p>
+                    </div>
+                </section>
+
+                <section class="education">
+                    <h2>Education</h2>
+                    ${portfolioData.education.map(edu => `
+                        <div class="education-item">
+                            <h3>${edu.institution}</h3>
+                            <p>${edu.degree}</p>
+                            <p>${edu.year}</p>
+                        </div>
+                    `).join('')}
+                </section>
+
+                <section class="experience">
+                    <h2>Experience</h2>
+                    ${portfolioData.experience.map(exp => `
+                        <div class="experience-item">
+                            <h3>${exp.position}</h3>
+                            <p class="company">${exp.company}</p>
+                            <p class="duration">${exp.duration}</p>
+                            <p class="description">${exp.description}</p>
+                        </div>
+                    `).join('')}
+                </section>
+
+                <section class="skills">
+                    <h2>Skills</h2>
+                    <div class="skills-grid">
+                        ${portfolioData.skills.map(skill => `
+                            <span class="skill-tag">${skill}</span>
+                        `).join('')}
+                    </div>
+                </section>
+
+                <section class="projects">
+                    <h2>Projects</h2>
+                    ${portfolioData.projects.map(project => `
+                        <div class="project-item">
+                            <h3>${project.name}</h3>
+                            <p>${project.description}</p>
+                            <a href="${project.link}" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i> View Project
+                            </a>
+                        </div>
+                    `).join('')}
+                </section>
+            `;
+        }
+
+        // Load portfolio data when the page loads
+        document.addEventListener('DOMContentLoaded', loadPortfolioData);
+    </script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Portfolio - Portfolio Maker</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/create.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        // Initialize PDF.js worker
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">CareerCanvas</a>
+                </div>
+                <nav class="desktop-nav">
+                    <ul>
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="templates.html" class="nav-link">Templates</a></li>
+                        <li><a href="features.html" class="nav-link">Features</a></li>
+                    </ul>
+                    <a href="templates.html" class="btn btn-outline">Browse Templates</a>
+                </nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <!-- Mobile Navigation -->
+            <div class="mobile-nav" id="mobileNav">
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="templates.html" class="nav-link">Templates</a></li>
+                    <li><a href="features.html" class="nav-link">Features</a></li>
+                    <li><a href="templates.html" class="btn btn-outline mobile-btn">Browse Templates</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Create Portfolio Section -->
+    <section class="create-section">
+        <div class="container">
+            <div class="create-header">
+                <h1>Create Your Portfolio</h1>
+                <p id="template-info">Choose how you want to build your portfolio</p>
+            </div>
+
+            <div class="create-card">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="upload">
+                        <i class="fas fa-upload"></i>
+                        <span>Upload</span>
+                    </button>
+                    <button class="tab-btn" data-tab="personal">
+                        <i class="fas fa-user"></i>
+                        <span>Personal</span>
+                    </button>
+                    <button class="tab-btn" data-tab="education">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Education</span>
+                    </button>
+                    <button class="tab-btn" data-tab="experience">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Experience</span>
+                    </button>
+                    <button class="tab-btn" data-tab="skills">
+                        <i class="fas fa-code"></i>
+                        <span>Skills</span>
+                    </button>
+                </div>
+
+                <div class="tab-content">
+                    <!-- Upload Tab -->
+                    <div class="tab-pane active" id="upload">
+                        <div class="upload-area">
+                            <i class="fas fa-file-upload"></i>
+                            <h3>Upload LinkedIn PDF</h3>
+                            <p>Export your LinkedIn profile as a PDF and upload it here to automatically fill your portfolio information.</p>
+                            <label for="linkedin-pdf" class="btn btn-primary">
+                                <span id="upload-btn-text">Select PDF File</span>
+                            </label>
+                            <input type="file" id="linkedin-pdf" accept=".pdf" hidden>
+                        </div>
+
+                        <div class="url-divider">
+                            <span>OR</span>
+                        </div>
+
+                        <div class="linkedin-url-area">
+                            <i class="fab fa-linkedin"></i>
+                            <h3>Use LinkedIn Profile URL</h3>
+                            <p>Paste your LinkedIn profile URL to extract your professional information.</p>
+                            <div class="linkedin-url-input">
+                                <input type="url" id="linkedin-url" placeholder="https://www.linkedin.com/in/yourprofile">
+                                <button id="extract-url-btn" class="btn btn-primary">Extract</button>
+                            </div>
+                        </div>
+
+                        <div class="manual-option">
+                            <p>Don't have a LinkedIn PDF or URL? You can <button class="text-link" id="manual-entry-btn">manually enter your information</button>.</p>
+                        </div>
+                    </div>
+
+                    <!-- Personal Tab -->
+                    <div class="tab-pane" id="personal">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" placeholder="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Professional Title</label>
+                                <input type="text" id="title" placeholder="Full Stack Developer">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" placeholder="john.doe@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" placeholder="+1 (555) 123-4567">
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Location</label>
+                                <input type="text" id="location" placeholder="San Francisco, CA">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="about">About Me</label>
+                            <textarea id="about" placeholder="Write a brief introduction about yourself" rows="5"></textarea>
+                        </div>
+                        <div class="form-buttons">
+                            <button class="btn btn-primary next-btn" data-next="education">Next: Education</button>
+                        </div>
+                    </div>
+
+                    <!-- Education Tab -->
+                    <div class="tab-pane" id="education">
+                        <div id="education-container">
+                            <div class="education-item">
+                                <div class="item-header">
+                                    <h3>Education #1</h3>
+                                </div>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="institution-0">Institution</label>
+                                        <input type="text" id="institution-0" placeholder="University Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="degree-0">Degree</label>
+                                        <input type="text" id="degree-0" placeholder="B.S. Computer Science">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="year-0">Year</label>
+                                        <input type="text" id="year-0" placeholder="2018-2022">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline add-btn" id="add-education">+ Add Another Education</button>
+                        <div class="form-buttons">
+                            <button class="btn btn-outline prev-btn" data-prev="personal">Previous: Personal</button>
+                            <button class="btn btn-primary next-btn" data-next="experience">Next: Experience</button>
+                        </div>
+                    </div>
+
+                    <!-- Experience Tab -->
+                    <div class="tab-pane" id="experience">
+                        <div id="experience-container">
+                            <div class="experience-item">
+                                <div class="item-header">
+                                    <h3>Experience #1</h3>
+                                </div>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="company-0">Company</label>
+                                        <input type="text" id="company-0" placeholder="Company Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="position-0">Position</label>
+                                        <input type="text" id="position-0" placeholder="Software Developer">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="duration-0">Duration</label>
+                                        <input type="text" id="duration-0" placeholder="2022-Present">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description-0">Description</label>
+                                    <textarea id="description-0" placeholder="Describe your responsibilities and achievements" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline add-btn" id="add-experience">+ Add Another Experience</button>
+                        <div class="form-buttons">
+                            <button class="btn btn-outline prev-btn" data-prev="education">Previous: Education</button>
+                            <button class="btn btn-primary next-btn" data-next="skills">Next: Skills & Projects</button>
+                        </div>
+                    </div>
+
+                    <!-- Skills Tab -->
+                    <div class="tab-pane" id="skills">
+                        <div class="skills-section">
+                            <h3>Skills</h3>
+                            <div id="skills-container">
+                                <div class="skill-item">
+                                    <input type="text" class="skill-input" placeholder="e.g., JavaScript, React, Node.js">
+                                </div>
+                            </div>
+                            <button class="btn btn-outline add-btn" id="add-skill">+ Add Another Skill</button>
+                        </div>
+
+                        <div class="projects-section">
+                            <h3>Projects</h3>
+                            <div id="projects-container">
+                                <div class="project-item">
+                                    <div class="item-header">
+                                        <h3>Project #1</h3>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="project-name-0">Project Name</label>
+                                        <input type="text" id="project-name-0" placeholder="Project Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="project-description-0">Description</label>
+                                        <textarea id="project-description-0" placeholder="Describe your project" rows="3"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="project-link-0">Project Link</label>
+                                        <input type="url" id="project-link-0" placeholder="https://github.com/yourusername/project">
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline add-btn" id="add-project">+ Add Another Project</button>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button class="btn btn-outline prev-btn" data-prev="experience">Previous: Experience</button>
+                            <button class="btn btn-primary" id="create-portfolio-btn">Create Portfolio</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>CareerCanvas</h3>
+                    <p>Create professional portfolios in minutes with our easy-to-use platform.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="templates.html">Templates</a></li>
+                        <li><a href="features.html">Features</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> CareerCanvas. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/ai-helper.js"></script>
+    <script src="js/create.js"></script>
+</body>
+</html>
+
